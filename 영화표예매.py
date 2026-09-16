@@ -19,7 +19,7 @@ def print_seat():
 def amount():
     cnt = 0
     for e in seat:
-        if e == 0: cnt += 1
+        if e == 1: cnt += 1
     return cnt * TICKET_PRICE
 
 # 좌석 예약 하기
@@ -32,9 +32,21 @@ def select_seat():
     else:
         print("이미 예약된 좌석 입니다.")
 
+# 취소하기
+def cancel_seat():
+    print_seat()
+    num = int(input("좌석 번호를 선택하세요: ")) - 1
+    if seat[num] == 1:
+        seat[num] = 0
+        print_seat()
+    else:
+        print("예약되지 않은 좌석입니다.")
+
+
 while True:
-    sel = int(input("[1]예매하기 [2]종료하기: "))
+    sel = int(input("[1]예매하기 [2] 취소하기 [3]종료하기: "))
     if sel == 1: select_seat()
-    elif sel == 2:
+    elif sel == 2: cancel_seat()
+    elif sel == 3:
         print(f"총 매출액 : {amount()}원")
         break
