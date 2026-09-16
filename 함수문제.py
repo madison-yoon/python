@@ -5,6 +5,7 @@
 # print(f"{avg(num):.2f}")
 
 
+
 # 세자리 정수 중 큰 수 구하기
 # def slice_num(num):
 #     x = num // 100
