@@ -4,16 +4,17 @@
 # num = list(map(int, input("정수 입력:").split(",")))
 # print(f"{avg(num):.2f}")
 
-def choice(x, y, z):  # 매개변수 3개를 받도록 수정
-    if x > y >= z or x > z >= y:
-        return x
-    elif y > x >= z or y > z >= x:
-        return y
-    else:
-        return z
-
-# 쉼표(,)로 구분하여 3개의 정수 입력받기
-x, y, z = list(map(int, input("3가지 정수 입력: ").split(",")))
-
-# 함수를 호출할 때 입력받은 변수 a, b, c를 전달
-print(f"최댓값: {choice(x, y, z)}")
+# 세자리 정수 중 큰 수 구하기
+def slice_num(num):
+    x = num // 100
+    y = (num % 100) // 10
+    z = num % 10
+    return (x, y, z)
+num = int(input("3자리 수 입력: "))
+x, y, z = slice_num(num)
+if x > y >= z or x > z >= y:
+    print(f"'{x}' 100의 자리 수가 가장 큽니다.")
+elif y > x >= z or y > z >= x:
+    print(f"'{y}' 10의 자리 수가 가장 큽니다.")
+else:
+    print(f"'{z}' 1의 자리 수가 가장 큽니다.")
