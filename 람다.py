@@ -20,3 +20,9 @@ print(out)
 
 out = list(map(lambda x: x * x, [1,2,3,4,5]))
 print(out)
+
+number = list(map(int,input("입력: ")))
+odd = list(filter(lambda x: x % 2 == 1, number))
+even = list(filter(lambda x: x % 2 == 0, number))
+print(f"짝수 : {odd}")
+print(f"홀수 : {even}")
