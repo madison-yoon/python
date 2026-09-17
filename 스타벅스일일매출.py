@@ -111,7 +111,7 @@ while True:
     elif choice == 4:
         least_sold_menu_func()
     elif choice == 5:
-        most_sold_date_func()  # 수정된 부분 (best_sales_day_func -> most_sold_date_func)
+        most_sold_date_func()
     elif choice == 0:
         print("프로그램을 종료합니다.")
         break
