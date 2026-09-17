@@ -33,7 +33,7 @@ class Television: #클래스 이름은 대문자로 시작
         print(f"채널 : {self.channel}")
         print(f"볼륨 : {self.volume}")
 
-lg_tv = Television("LG", True, 10, 10)
+lg_tv = Television("LG", True, 10, 110)
 lg_tv.view_tv()
 samsung_tv = Television("Samsung", False, 20, 20)
 samsung_tv.view_tv()
