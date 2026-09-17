@@ -12,7 +12,10 @@ class Television: #클래스 이름은 대문자로 시작
         self.channel = channel
 
     def set_volume(self, volume):
-        self.volume = volume
+        if 0 <= volume <= 100:
+            self.volume = volume
+        else:
+            print("볼륨값 입력 범위를 초과했습니다.")
 
     def get_on(self):
         return self.on
