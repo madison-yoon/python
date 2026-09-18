@@ -22,5 +22,7 @@ while True:
     else:
         print("정상 처리되었습니다.")
         break
+
+print("프로그램 실행 완료!!")
     # finally:
     #     print("프로그램 실행 완료!!")
