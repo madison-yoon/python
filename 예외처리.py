@@ -11,6 +11,8 @@ except ValueError:
     print("에러!!! 잘못된 값을 입력하였습니다.")
 except ZeroDivisionError as err:
     print(err)
+except Exception as err:
+    print(err)
 else:
     print("정상 처리되었습니다.")
 finally:
