@@ -7,52 +7,106 @@ def get_connection():
                            password="1234", database="mysqlDB", charset="utf8")
     return conn
 
-# 2. 테이블 생성 함수들
-def create_user_table(conn):
-    cur = conn.cursor()
-    cur.execute("DROP TABLE IF EXISTS commentTable")
-    cur.execute("DROP TABLE IF EXISTS boardTable")
-    cur.execute("DROP TABLE IF EXISTS userTable")
-    cur.execute("""
-        CREATE TABLE userTable (
-            id CHAR(10) PRIMARY KEY,
-            pwd CHAR(15),
-            name CHAR(20),
-            email CHAR(20),
-            addr CHAR(50)
-        )
-    """)
-    conn.commit()
-    cur.close()
 
-def create_board_table(conn):
+def create_tables(conn):
     cur = conn.cursor()
-    cur.execute("""
-        CREATE TABLE boardTable (
-            board_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-            title VARCHAR(50) NOT NULL,
-            content TEXT,
-            writer CHAR(10),
-            reg_date datetime,
-            FOREIGN KEY (writer) REFERENCES userTable(id)
-        )
-    """)
-    conn.commit()
-    cur.close()
 
-def create_comment_table(conn):
-    cur = conn.cursor()
+    # 1. userTable 생성
     cur.execute("""
-        CREATE TABLE commentTable (
-            comment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-            board_id BIGINT,
-            writer CHAR(10),
-            content VARCHAR(1000),
-            reg_date datetime,
-            FOREIGN KEY (board_id) REFERENCES boardTable(board_id),
-            FOREIGN KEY (writer) REFERENCES userTable(id)
-        )
-    """)
+                CREATE TABLE IF NOT EXISTS userTable
+                (
+                    id
+                    CHAR
+                (
+                    10
+                ) PRIMARY KEY,
+                    pwd CHAR
+                (
+                    15
+                ),
+                    name CHAR
+                (
+                    20
+                ),
+                    email CHAR
+                (
+                    20
+                ),
+                    addr CHAR
+                (
+                    50
+                )
+                    )
+                """)
+
+    # 2. boardTable 생성
+    cur.execute("""
+                CREATE TABLE IF NOT EXISTS boardTable
+                (
+                    board_id
+                    BIGINT
+                    AUTO_INCREMENT
+                    PRIMARY
+                    KEY,
+                    title
+                    VARCHAR
+                (
+                    50
+                ) NOT NULL,
+                    content TEXT,
+                    writer CHAR
+                (
+                    10
+                ),
+                    reg_date DATETIME,
+                    FOREIGN KEY
+                (
+                    writer
+                ) REFERENCES userTable
+                (
+                    id
+                )
+                    )
+                """)
+
+    # 3. commentTable 생성
+    cur.execute("""
+                CREATE TABLE IF NOT EXISTS commentTable
+                (
+                    comment_id
+                    BIGINT
+                    AUTO_INCREMENT
+                    PRIMARY
+                    KEY,
+                    board_id
+                    BIGINT,
+                    writer
+                    CHAR
+                (
+                    10
+                ),
+                    content VARCHAR
+                (
+                    1000
+                ),
+                    reg_date DATETIME,
+                    FOREIGN KEY
+                (
+                    board_id
+                ) REFERENCES boardTable
+                (
+                    board_id
+                ),
+                    FOREIGN KEY
+                (
+                    writer
+                ) REFERENCES userTable
+                (
+                    id
+                )
+                    )
+                """)
+
     conn.commit()
     cur.close()
 
@@ -293,13 +347,11 @@ def delete_post(conn, login_id):
 
 def main():
     conn = get_connection()
-    create_user_table(conn)
-    create_board_table(conn)
-    create_comment_table(conn)
+    create_tables(conn)
     conn.close()
 
     is_logged_in = False
-    current_user_id = None  # 로그인한 유저 아이디 저장 변수
+    current_user_id = None
 
     while True:
         conn = get_connection()
