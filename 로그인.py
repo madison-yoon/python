@@ -4,8 +4,56 @@ from datetime import datetime
 # 1. DB 연결
 def get_connection():
     conn = pymysql.connect(host="127.0.0.1", user="root", port=3306,
-                           password="1234", database="access", charset="utf8")
+                           password="1234", database="mysqlDB", charset="utf8")
     return conn
+
+# 2. 테이블 생성 함수들
+def create_user_table(conn):
+    cur = conn.cursor()
+    cur.execute("DROP TABLE IF EXISTS commentTable")
+    cur.execute("DROP TABLE IF EXISTS boardTable")
+    cur.execute("DROP TABLE IF EXISTS userTable")
+    cur.execute("""
+        CREATE TABLE userTable (
+            member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            email VARCHAR(50) NOT NULL UNIQUE,
+            pwd VARCHAR(100) NOT NULL,
+            name VARCHAR(50),
+            register_date DATETIME
+        )
+    """)
+    conn.commit()
+    cur.close()
+
+def create_board_table(conn):
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE boardTable (
+            board_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(50) NOT NULL,
+            content TEXT,
+            member_id BIGINT,
+            FOREIGN KEY (member_id) REFERENCES userTable(member_id)
+        )
+    """)
+    conn.commit()
+    cur.close()
+
+def create_comment_table(conn):
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE commentTable (
+            comment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            board_id BIGINT,
+            member_id BIGINT,
+            content VARCHAR(1000),
+            FOREIGN KEY (board_id) REFERENCES boardTable(board_id),
+            FOREIGN KEY (member_id) REFERENCES userTable(member_id)
+        )
+    """)
+    conn.commit()
+    cur.close()
+
 
 #회원가입
 def signup_user(conn):
@@ -20,7 +68,7 @@ def signup_user(conn):
     register_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     try:
-        sql = "INSERT INTO member (name, email, pwd, register_date) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO userTable (name, email, pwd, register_date) VALUES (%s, %s, %s, %s)"
         cur.execute(sql, (name, email, pwd, register_date))
         conn.commit()
         print("성공적으로 회원가입이 되었습니다.")
@@ -46,7 +94,7 @@ def login_user(conn):
     pwd = input("패스워드 : ")
 
     try:
-        sql = "SELECT * FROM member WHERE email = %s AND pwd = %s"
+        sql = "SELECT * FROM userTable WHERE email = %s AND pwd = %s"
         cur.execute(sql, (user_id, pwd))
         user = cur.fetchone()
 
@@ -91,6 +139,12 @@ def delete_post(conn):
     pass
 
 def main():
+    conn = get_connection()
+    create_user_table(conn)
+    create_board_table(conn)
+    create_comment_table(conn)
+    conn.close()
+
     is_logged_in = False  # 최초 로그인 상태: 아니오 (False)
 
     while True:
@@ -138,3 +192,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
