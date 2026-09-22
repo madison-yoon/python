@@ -61,7 +61,39 @@ def insert_user(conn):
         cur.close() # 커서만 닫아줌
 
 
-# 2. 회원 수정
+# from datetime import datetime
+#
+# def signup_user(conn):
+#     cur = conn.cursor()
+#
+#     name = input("이름 : ")
+#     user_id = input("이메일 : ")
+#     if user_id == 'exit':
+#         return "exit"
+#     pwd = input("패스워드 : ")
+#
+#     register_date = datetime.now().strftime('%Y%m%d')
+#
+#     try:
+#         sql = "INSERT INTO userTable (name, email, pwd, register_date) VALUES (%s, %s, %s, %s)"
+#         cur.execute(sql, (name, email, pwd, register_date))
+#         conn.commit()
+#         print("성공적으로 회원가입이 되었습니다.")
+#
+#     except pymysql.err.IntegrityError as e:
+#         # MySQL 중복 키 에러 번호인 1062번 확인
+#         if e.args[0] == 1062:
+#             print("오류 발생 : 이미 존재하는 아이디입니다.")
+#         else:
+#             print(f"오류 발생 : {e}")
+#
+#     except Exception as e:
+#         print(f"오류 발생 : {e}")
+#
+#     finally:
+#         cur.close()
+
+
 # 2. 회원 수정 (원하는 항목만 수정, 엔터 시 기존 값 유지)
 def update_user(conn):
     cur = conn.cursor()

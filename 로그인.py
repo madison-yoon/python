@@ -1,0 +1,100 @@
+# 1. 로그인 함수
+def login_user(conn):
+    cur = conn.cursor()
+    print("\n--- 로그인 ---")
+    user_id = input("이메일 : ")
+    pwd = input("패스워드 : ")
+
+    try:
+        sql = "SELECT * FROM member1 WHERE email = %s AND pwd = %s"
+        cur.execute(sql, (user_id, pwd))
+        user = cur.fetchone()
+
+        if user:
+            print(f"로그인 성공! 환영합니다, {user[3]}님.") # name 컬럼 위치에 따라 인덱스 조정 가능
+            return True
+        else:
+            print("로그인 실패 : 이메일 또는 비밀번호가 잘못되었습니다.")
+            return False
+    finally:
+        cur.close()
+
+# 2. 비로그인 상태 메뉴 (회원가입 / 로그인)
+def print_auth_menu():
+    print("\n===== 시작 메뉴 =====")
+    print("1. 로그인")
+    print("2. 회원가입")
+    print("0. 프로그램 종료")
+    print("====================")
+
+# 3. 로그인 상태 게시판 메뉴
+def print_board_menu():
+    print("\n===== 게시판 메뉴 =====")
+    print("1. 게시글 작성")
+    print("2. 게시글 목록/조회")
+    print("3. 댓글 작성")
+    print("4. 게시글 삭제")
+    print("5. 로그아웃")
+    print("=======================")
+
+# 4. 게
+def write_post(conn):
+    print("[게시글 작성 기능]")
+    pass
+def view_posts(conn):
+    print("[게시글 목록/조회 기능]")
+def write_comment(conn):
+    print("[댓글 작성 기능]")
+    pass
+def delete_post(conn):
+    print("[게시글 삭제 기능]")
+    pass
+
+def main():
+    is_logged_in = False  # 최초 로그인 상태: 아니오 (False)
+
+    while True:
+        conn = get_connection()
+
+        # 로그인 상태 확인
+        if not is_logged_in:
+            print_auth_menu()
+            choice = input("선택: ")
+
+            if choice == "1":
+                # 로그인 시도
+                if login_user(conn):
+                    is_logged_in = True  # 로그인 성공 시 상태 변경
+            elif choice == "2":
+                # 회원가입
+                signup_user(conn)
+            elif choice == "0":
+                print("프로그램을 종료합니다.")
+                conn.close()
+                break
+            else:
+                print("잘못된 선택입니다. 다시 입력하세요.")
+
+        else:
+            # 플로우차트 D: 로그인 상태가 '예'일 때 게시판 메뉴 노출
+            print_board_menu()
+            choice = input("선택: ")
+
+            if choice == "1":
+                write_post(conn)
+            elif choice == "2":
+                view_posts(conn)
+            elif choice == "3":
+                write_comment(conn)
+            elif choice == "4":
+                delete_post(conn)
+            elif choice == "5":
+                print("로그아웃 되었습니다.")
+                is_logged_in = False  # 로그아웃 시 다시 비로그인 상태로 전환
+            else:
+                print("잘못된 선택입니다. 다시 입력하세요.")
+
+        conn.close()
+
+if __name__ == "__main__":
+    main()
