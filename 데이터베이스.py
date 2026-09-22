@@ -3,7 +3,7 @@ import pymysql
 # 1. DB 연결
 def get_connection():
     conn = pymysql.connect(host="127.0.0.1", user="root", port=3306,
-                           password="1234", database="mysqlDB", charset="utf8")
+                           password="sphb8250", db="mysqlDB", charset="utf8")
     return conn
 
 def create_user_table(conn):
@@ -42,6 +42,7 @@ def insert_user(conn):
     conn.commit()
     conn.close()
 
+# 신규 회원 추가
 def new_user_insert(conn):
     cur = conn.cursor()
     id = input("아이디 : ")
@@ -58,7 +59,21 @@ def new_user_insert(conn):
     conn.commit()
     conn.close()
 
+# 회원 수정
 
+# 회원 삭제
+
+# 회워 조회
+
+# 메뉴 출력
+def print_menu():
+    print("\n===== 사용자 관리 메뉴 =====")
+    print("1. 사용자 추가")
+    print("2. 사용자 수정")
+    print("3. 사용자 삭제")
+    print("4. 사용자 조회")
+    print("5. 종료")
+    print("============================")
 
 def main():
     conn = get_connection()
