@@ -7,6 +7,7 @@ def get_connection():
                            password="1234", database="access", charset="utf8")
     return conn
 
+#회원가입
 def signup_user(conn):
     cur = conn.cursor()
 
@@ -16,7 +17,7 @@ def signup_user(conn):
         return "exit"
     pwd = input("패스워드 : ")
 
-    register_date = datetime.now().strftime('%Y%m%d')
+    register_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     try:
         sql = "INSERT INTO member (name, email, pwd, register_date) VALUES (%s, %s, %s, %s)"
