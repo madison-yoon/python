@@ -11,104 +11,22 @@ def get_connection():
 def create_tables(conn):
     cur = conn.cursor()
 
-    # 1. userTable 생성
-    cur.execute("""
-                CREATE TABLE IF NOT EXISTS userTable
-                (
-                    id
-                    CHAR
-                (
-                    10
-                ) PRIMARY KEY,
-                    pwd CHAR
-                (
-                    15
-                ),
-                    name CHAR
-                (
-                    20
-                ),
-                    email CHAR
-                (
-                    20
-                ),
-                    addr CHAR
-                (
-                    50
-                )
-                    )
-                """)
+    try:
+        # 1. userTable 생성
+        cur.execute(
+            "CREATE TABLE IF NOT EXISTS userTable (id CHAR(10) PRIMARY KEY, pwd CHAR(15), name CHAR(20), email CHAR(20), addr CHAR(50))")
 
-    # 2. boardTable 생성
-    cur.execute("""
-                CREATE TABLE IF NOT EXISTS boardTable
-                (
-                    board_id
-                    BIGINT
-                    AUTO_INCREMENT
-                    PRIMARY
-                    KEY,
-                    title
-                    VARCHAR
-                (
-                    50
-                ) NOT NULL,
-                    content TEXT,
-                    writer CHAR
-                (
-                    10
-                ),
-                    reg_date DATETIME,
-                    FOREIGN KEY
-                (
-                    writer
-                ) REFERENCES userTable
-                (
-                    id
-                )
-                    )
-                """)
+        # 2. boardTable 생성
+        cur.execute(
+            "CREATE TABLE IF NOT EXISTS boardTable (board_id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(50) NOT NULL, content TEXT, writer CHAR(10), reg_date DATETIME, FOREIGN KEY (writer) REFERENCES userTable(id))")
 
-    # 3. commentTable 생성
-    cur.execute("""
-                CREATE TABLE IF NOT EXISTS commentTable
-                (
-                    comment_id
-                    BIGINT
-                    AUTO_INCREMENT
-                    PRIMARY
-                    KEY,
-                    board_id
-                    BIGINT,
-                    writer
-                    CHAR
-                (
-                    10
-                ),
-                    content VARCHAR
-                (
-                    1000
-                ),
-                    reg_date DATETIME,
-                    FOREIGN KEY
-                (
-                    board_id
-                ) REFERENCES boardTable
-                (
-                    board_id
-                ),
-                    FOREIGN KEY
-                (
-                    writer
-                ) REFERENCES userTable
-                (
-                    id
-                )
-                    )
-                """)
+        # 3. commentTable 생성
+        cur.execute(
+            "CREATE TABLE IF NOT EXISTS commentTable (comment_id BIGINT AUTO_INCREMENT PRIMARY KEY, board_id BIGINT, writer CHAR(10), content VARCHAR(1000), reg_date DATETIME, FOREIGN KEY (board_id) REFERENCES boardTable(board_id), FOREIGN KEY (writer) REFERENCES userTable(id))")
 
-    conn.commit()
-    cur.close()
+        conn.commit()
+    finally:
+        cur.close()
 
 # 회원가입
 def signup_user(conn):
@@ -186,8 +104,8 @@ def write_post(conn, login_id):
     try:
         sql = """
               INSERT INTO boardTable (title, content, writer, reg_date)
-              SELECT %s, %s, id, %s 
-              FROM userTable 
+              SELECT %s, %s, id, %s
+              FROM userTable
               WHERE id = %s
               """
         cur.execute(sql, (title, content, reg_date, login_id))
