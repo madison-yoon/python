@@ -1,3 +1,42 @@
+import pymysql
+from datetime import datetime
+
+# 1. DB 연결
+def get_connection():
+    conn = pymysql.connect(host="127.0.0.1", user="root", port=3306,
+                           password="1234", database="access", charset="utf8")
+    return conn
+
+def signup_user(conn):
+    cur = conn.cursor()
+
+    name = input("이름 : ")
+    email = input("이메일 : ")
+    if email == 'exit':
+        return "exit"
+    pwd = input("패스워드 : ")
+
+    register_date = datetime.now().strftime('%Y%m%d')
+
+    try:
+        sql = "INSERT INTO member (name, email, pwd, register_date) VALUES (%s, %s, %s, %s)"
+        cur.execute(sql, (name, email, pwd, register_date))
+        conn.commit()
+        print("성공적으로 회원가입이 되었습니다.")
+
+    except pymysql.err.IntegrityError as e:
+        # MySQL 중복 키 에러 번호인 1062번 확인
+        if e.args[0] == 1062:
+            print("오류 발생 : 이미 존재하는 아이디입니다.")
+        else:
+            print(f"오류 발생 : {e}")
+
+    except Exception as e:
+        print(f"오류 발생 : {e}")
+
+    finally:
+        cur.close()
+
 # 1. 로그인 함수
 def login_user(conn):
     cur = conn.cursor()
@@ -6,7 +45,7 @@ def login_user(conn):
     pwd = input("패스워드 : ")
 
     try:
-        sql = "SELECT * FROM member1 WHERE email = %s AND pwd = %s"
+        sql = "SELECT * FROM member WHERE email = %s AND pwd = %s"
         cur.execute(sql, (user_id, pwd))
         user = cur.fetchone()
 
