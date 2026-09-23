@@ -1,0 +1,145 @@
+[
+    {
+        "title": "혼모노",
+        "author": "성해나",
+        "publisher": "창비",
+        "year": 2025,
+        "price": 16000,
+        "genre": [
+            "문학",
+            "소설"
+        ]
+    },
+    {
+        "title": "프로젝트 헤일메리",
+        "author": "앤디 위어",
+        "publisher": "RHK",
+        "year": 2021,
+        "price": 18000,
+        "genre": [
+            "문학",
+            "SF소설"
+        ]
+    },
+    {
+        "title": "단 한 번의 삶",
+        "author": "김영하",
+        "publisher": "복복서가",
+        "year": 2025,
+        "price": 17500,
+        "genre": [
+            "에세이/산문",
+            "한국에세이"
+        ]
+    },
+    {
+        "title": "절창",
+        "author": "구병모",
+        "publisher": "문학동네",
+        "year": 2025,
+        "price": 15000,
+        "genre": [
+            "문학",
+            "장편소설"
+        ]
+    },
+    {
+        "title": "불편한 편의점",
+        "author": "김호연",
+        "publisher": "나무옆의자",
+        "year": 2021,
+        "price": 14000,
+        "genre": [
+            "문학",
+            "소설"
+        ]
+    },
+    {
+        "title": "안녕이라 그랬어",
+        "author": "김애란",
+        "publisher": "문학동네",
+        "year": 2025,
+        "price": 16500,
+        "genre": [
+            "문학",
+            "소설"
+        ]
+    },
+    {
+        "title": "모든 것은 결정되어 있다",
+        "author": "로버트 M. 새폴스키",
+        "publisher": "문학동네",
+        "year": 2026,
+        "price": 32000,
+        "genre": [
+            "자연/과학",
+            "신경과학"
+        ]
+    },
+    {
+        "title": "파친코 1",
+        "author": "이민진",
+        "publisher": "인플루엔셜",
+        "year": 2022,
+        "price": 15800,
+        "genre": [
+            "문학",
+            "대서사소설"
+        ]
+    },
+    {
+        "title": "범인 없는 살인의 밤",
+        "author": "히가시노 게이고",
+        "publisher": "RHK",
+        "year": 2014,
+        "price": 14800,
+        "genre": [
+            "문학",
+            "미스터리"
+        ]
+    },
+    {
+        "title": "세계 미술사 대백과",
+        "author": "존 갤러웨이",
+        "publisher": "아트북스",
+        "year": 2024,
+        "price": 35000,
+        "genre": [
+            "문화/예술",
+            "미술사"
+        ]
+    },
+    {
+        "title": "여행의 이유",
+        "author": "김영하",
+        "publisher": "문학동네",
+        "year": 2019,
+        "price": 14000,
+        "genre": [
+            "에세이/산문",
+            "여행에세이"
+        ]
+    },
+    {
+        "title": "살인자의 기억법",
+        "author": "김영하",
+        "publisher": "문학동네",
+        "year": 2013,
+        "price": 12000,
+        "genre": [
+            "문학",
+            "소설"
+        ]
+    },
+    {
+        "title": "빛의 제국",
+        "author": "김영하",
+        "publisher": "문학동네",
+        "year": 2006,
+        "price": 13000,
+        "genre": [
+            "문학",
+            "장편소설"
+        ]
+    }
+]
