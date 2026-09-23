@@ -37,3 +37,10 @@ print(df['수학'].sum()) #합계
 print(df['수학'].mean()) #평균
 print(df['수학'].max()) #최대값
 print(df['수학'].min()) #최소값
+
+# 열추가
+df['반'] = [1, 1, 2, 2]
+print(df)
+
+#그룹화 데이터베이스 그룹바이랑 동일한 작동 원리
+print(df.groupby('반')['수학'].mean())
