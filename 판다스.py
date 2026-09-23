@@ -32,4 +32,8 @@ print(df)
 df.loc[3] = ['혜인', 92, 89, 77] # 행 추가
 print(df)
 
-
+# 기본 연산
+print(df['수학'].sum()) #합계
+print(df['수학'].mean()) #평균
+print(df['수학'].max()) #최대값
+print(df['수학'].min()) #최소값
