@@ -44,3 +44,38 @@ print(df)
 
 #그룹화 데이터베이스 그룹바이랑 동일한 작동 원리
 print(df.groupby('반')['수학'].mean())
+
+# 문제 1: CSV 파일을 불러와 데이터의 전체 행 개수를 출력하세요.
+df1 = pd.read_csv('exam.csv')
+print(df1)
+
+print(df1['math'])
+
+ma_df = df1[df1['math']>=80]
+print(ma_df)
+
+mn_df = df1['english'].mean()
+print(mn_df)
+
+# 문제 5: 데이터프레임을 새로운 CSV 파일로 저장하세요.
+df.to_csv('classscore.csv', index=False)
+
+# 문제 6: 각 학급별 수학과 영어 점수의 평균을 동시에 구하세요.
+print(df.groupby('반')[['수학','영어']].mean())
+
+# 문제 7: 각 학급별 수학 점수의 최대값과 최소값을 동시에 구하세요.
+print(df.groupby('반')['수학'].agg(['max', 'min']))
+
+data1 = {
+    '제품': ['사과','딸기','수박'],
+    '가격': [1800,1500,3000],
+    '판매량': [24,38,13]
+}
+
+prod = pd.DataFrame(data1)
+print(prod)
+
+print(f'{prod['가격'].mean():.0f}')
+print(f'{prod['판매량'].mean():.0f}')
+
+prod.to_csv('filtered_exam.csv', index=False)
